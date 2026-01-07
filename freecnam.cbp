@@ -22,6 +22,7 @@
 					<Add option="-DBUILD_DLL" />
 				</Compiler>
 				<Linker>
+					<Add option="-static" />
 					<Add option="-Wl,--add-stdcall-alias" />
 					<Add library="ws2_32" />
 				</Linker>
@@ -44,6 +45,7 @@
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
+					<Add option="-static" />
 					<Add option="-Wl,--add-stdcall-alias" />
 					<Add library="ws2_32" />
 				</Linker>
