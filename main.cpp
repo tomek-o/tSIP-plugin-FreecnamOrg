@@ -52,8 +52,31 @@ int RunScriptAsync(const char* script) {
 	return -1;
 }
 
+std::string LuaStringEscape(const std::string& input)
+{
+    std::string out;
+
+    for (char c : input)
+    {
+        switch (c)
+        {
+            case '\\': out += "\\\\"; break;
+            case '"':  out += "\\\""; break;
+            case '\'': out += "\\\'"; break;
+            case '\n': out += "\\n";  break;
+            case '\r': out += "\\r";  break;
+            case '\t': out += "\\t";  break;
+            case '\0': out += "\\0";  break;
+            default:
+                out += c;
+        }
+    }
+    return out;
+}
+
 void SetDescription(const std::string &text) {
-    std::string script = std::string("SetButtonCaption(") + UIntToString(customConf.buttonId) + ", '" + text + "')";
+    std::string script = std::string("SetButtonCaption(") +
+        UIntToString(customConf.buttonId) + ", '" + LuaStringEscape(text) + "')";
     //LOG("script = %s", script.c_str());
     RunScriptAsync(script.c_str());
 }
